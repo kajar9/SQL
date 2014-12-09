@@ -15,8 +15,8 @@
 <div id="table">
 <table width="100%" cellpadding="5" border="0">
 <tr>
-<td bgcolor="#B2B2B2" align="center">Sa oled sisse logitud kasutajana : <?php echo $_SESSION['user_name']; ?></td>
-<td bgcolor="darkred" width="100px" align="center"><a class="ajax-link" href="login.php?logout"><font color="white">Logi välja!</font></a></td>
+<td bgcolor="#B2B2B2" align="center">Sa ei ole sisse logitud. Logi sisse, et laadida üles uusi pilte, hinnata, kommenteerida jm.</td>
+<td bgcolor="darkgreen" width="100px" align="center"><a href="login.php" target="search_iframe"><font color="white">Log in</font></a></td>
 <tr>
 </table>
 </div>

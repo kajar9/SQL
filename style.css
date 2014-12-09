@@ -1,0 +1,135 @@
+html,body
+{
+	text-align:center;
+}
+p
+{
+	text-align:left;
+	line-height:110%;
+}
+
+*
+{
+	text-align:left;
+	margin:0;
+	padding:0;
+}
+
+#page
+{
+	display:block;
+	height:auto;
+	position:relative;
+	overflow:hidden;
+	width:900px;
+	margin:25px auto 0;
+}
+
+#header
+{
+	background-color:#B2B2B2;
+	height:48px;
+	width:1024px;
+	margin-top: auto;
+	margin-left: auto;
+    margin-right: auto;
+	border-top-right-radius:16px;
+	border-top-left-radius:16px;
+}
+
+#header h1
+{
+	position:relative;
+	color:#F6F6F6;
+	text-align:center;
+	font-size:20px;
+	font-weight:700;
+	font-family:Arial, Helvetica, sans-serif;
+	text-decoration:none;
+	text-shadow:2px 4px 20px black;
+}
+
+#header h2
+{
+	position:relative;
+	color:#F6F6F6;
+	text-align:center;
+	font-size:15px;
+	font-weight:700;
+	font-family:Arial, Helvetica, sans-serif;
+	text-shadow:2px 4px 20px black;
+}
+
+#menu
+{
+	position:relative;
+	height:33px;
+	width:1024px;
+	background-color:#CA0000;
+	padding-top: 5px;
+	text-align:center;
+	margin-left: auto;
+    margin-right: auto;
+	
+	background-color:#B2B2B2;
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#B2B2B2, endColorstr=#6a8a99);
+	background-image:-moz-linear-gradient(top, #B2B2B2 10%, #6a8a99 50%,#B2B2B2 90%);
+	background-image:linear-gradient(top, #B2B2B2 10%, #6a8a99 50%,#B2B2B2 90%);
+	background-image:-webkit-linear-gradient(top, #B2B2B2 10%, #6a8a99 50%,#B2B2B2 90%);
+	background-image:-o-linear-gradient(top, #B2B2B2 10%, #6a8a99 50%,#B2B2B2 90%);
+	background-image:-ms-linear-gradient(top, #B2B2B2 10%, #6a8a99 50%,#B2B2B2 90%);
+	background-image:-webkit-gradient(linear, right top, right bottom, color-stop(10%,#B2B2B2), color-stop(50%,#6a8a99),color-stop(90%,#B2B2B2));
+}
+
+#menu p
+{
+	text-align:center;
+	font-size:20px;
+}
+
+#menu a
+{
+	top:20px;
+	color: black;
+	outline:none;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:700;
+	border: 3px solid white;
+	border-radius: 4px;
+	margin-right: 2px;
+	margin-left: 2px;
+	padding: 3px;
+	background-color: gray;
+	text-decoration: none;
+	
+}
+
+menu a:hover {
+    color: blue;
+} 
+
+#body-element
+{
+	position: relative;
+	text-align:center;
+	height: 85%;
+	width: 1024px;
+	background-color: #E6E6E6;
+	margin-left: auto;
+    margin-right: auto;
+	overflow: hidden;
+	color: black;
+}
+
+#footer
+{
+	position:relative;
+	background-color:#B2B2B2;
+	height:30px;
+	width:1024px;
+	margin-top: auto;
+	margin-left: auto;
+    margin-right: auto;
+	border-bottom-right-radius:16px;
+	border-bottom-left-radius:16px;
+}

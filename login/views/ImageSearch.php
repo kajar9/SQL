@@ -16,11 +16,6 @@ if (isset($login)) {
 
 <head>
 	<style>
-*
-{
-	margin:0;
-	padding:0;
-}
 
 #form
 {	
@@ -40,19 +35,17 @@ if (isset($login)) {
 <!-- login form box -->
 <div id="form">
 
-<h1>Account Login</h1><br>
+<h1>Image Search</h1>
 
-<form method="post" action="login.php" name="loginform">
+<form method="post" action="search.php" name="searchform">
+	Otsi kasutajanime ja/või pildinime järgi!<br>
+    <label for="search_user_input">Kasutajanimi</label>
+    <input id="search_user_input" type="text" name="search_user" />
 
-    <label for="login_input_username">Username</label>
-    <input id="login_input_username" class="login_input" type="text" name="user_name" required />
-
-    <label for="login_input_password">Password</label>
-    <input id="login_input_password" class="login_input" type="password" name="user_password" autocomplete="off" required />
-
-    <input type="submit"  name="login" value="Log in" />
+    <label for="search_imgname_input">Pildinimi</label>
+    <input id="search_imgname_input" type="text" name="search_imgname" />
+<br><br>
+    <input type="submit"  name="search" value="Search" />
 
 </form>
-<br><br>Or...
-<a class="ajax-link" href="register.php">Registreeri uus kasutaja</a>
 </div>
