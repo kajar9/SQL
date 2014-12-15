@@ -22,40 +22,28 @@ function ImageCount()
             WHERE `owner` = " . "'" . $_SESSION['user_name'] . "'" . ";";
 	$locresult = connect($sql);
 	$numrows = $locresult->num_rows;
-	return $numrows;	
+	return $numrows;
+}
+
+function MyRate($photo_id)
+{
+	$sql = "SELECT * FROM `131034_ratings` 
+	WHERE `user_id` = \"" . $_SESSION['user_id'] . "\" 
+	AND `photo_id` = \"" . $photo_id . "\"";
+	$locresult = connect($sql);
+	$numrows = $locresult->num_rows;
+	return $numrows;
 }
 
 function getRating($photo_id)
 {
-	$sql = "SELECT `rating`
+	$numrows = 0;
+	$sql = "SELECT *
         FROM `131034_ratings`
 		WHERE `photo_id` = \"" . $photo_id . "\";";
-	$locresult = connect($sql);
-	
-	$rating = 0.0; $i=0;
-	while($locres=$locresult->fetch_object()){
-		$rating+=$locres->rating;
-		$i++;
-	}
-	if($rating>0){$rating=$rating/$i;}
-	
-	return $rating;
-}
-
-function getMyRating($photo_id)
-{
-	if (isset($_SESSION['user_login_status'])){
-		$sql = "SELECT `rating`
-        FROM `131034_ratings`
-		WHERE `photo_id` = \"" . $photo_id . "\" AND `user_id` = " . $_SESSION['user_id'];
-	$rating=0;
-	$locresult = connect($sql);
-		while($locres=$locresult->fetch_object()){
-		$rating=$locres->rating;
-		}
-	return $rating;
-	}
-	return 0;
+	$locresult = connect($sql);	
+	$numrows = $locresult->num_rows;
+	return $numrows;
 }
 
 function CommentCount($photo_id)
@@ -91,4 +79,12 @@ function isUserLoggedIn()
         return false;
     }
 
+function getUser($userid){
+	$sql="SELECT * FROM `131034_users` WHERE `user_id` = \"" . $userid . "\" LIMIT 1";
+		$locresult555 = connect($sql);
+		while($res555=$locresult555->fetch_object()){
+			return $res555->user_name;
+		}
+}
+	
 ?>

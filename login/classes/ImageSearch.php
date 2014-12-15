@@ -59,15 +59,15 @@
 #imagebox
 {
 	display: block;
-	background-color: lightblue;
+	
 	align: center;
 	padding-bottom: 120px;
 }
 #element {  
   border: 2px solid black;
   width: 5.33%;
-  width: calc(60%/3);
-  height: 20px;
+  width: calc(70%/3);
+  height: 33px;
   float: left;
   text-align: left;
   overflow: hidden;
@@ -79,34 +79,72 @@ td{
 text-align: center;
 }
 
+.like {
+border: none;
+background:url("like.png");
+	height:33px;
+width: 114px;
+background-size: 100%;
+}
+
+.like:hover {	
+    background:url("likeMO.png");
+	height:33px;
+width: 114px;
+background-size: 100%;
+}
+
+.liked {
+border: none;
+background:url("liked.png");
+background-size: 100%;
+	height:33px;
+width: 114px;
+background-size: 100%;
+}
+
+.liked:hover {	
+    background:url("likedMO.png");
+	height:33px;
+width: 114px;
+background-size: 100%;
+}
+
+</style>
+
+<script>
+function gid(c) {
+    return document.getElementById(c);
+}
+function replace(c) {
+	gid(c).className += "d";
+}
+</script>
+
 </style>
 </head>
 
 <?php
-
 // define variables and set to empty values
 
 include("Functions.php");
-if(isset($_POST["rating"])){
+if(isset($_POST["photoids"])){
   $rate_photoid = $rate_rating = $rate_userid = "";
-  $rate_photoid = test_input($_POST["photoid"]);
-  $rate_rating = test_input($_POST["rating"]);
+  $rate_photoid = test_input($_POST["photoids"]);
   $rate_userid = $_SESSION['user_id'];
   $sql12="SELECT * FROM `131034_ratings` WHERE `user_id` = \"" . $rate_userid . "\" AND `photo_id` = \"" . $rate_photoid . "\"";
   $locresult425 = connect($sql12);
   $numrows425 = $locresult425->num_rows;
   if($numrows425>0){
-	$sql12="UPDATE `131034_ratings` 
-	SET `rating` = \"" . $rate_rating . "\" 
-	WHERE `user_id` = \"" . $rate_userid . "\" 
-	AND `photo_id` = \"" . $rate_photoid . "\";";
+	$sql12="DELETE FROM `131034_ratings` WHERE `user_id` = \"" . $rate_userid . "\" AND `photo_id` = \"" . $rate_photoid . "\"";
+	echo "Sinu hinnang pildilt on eemaldatud!";
   }else{
 	$sql12="INSERT INTO `131034_ratings`
-	(`photo_id`, `user_id`, `rating`) 
-	VALUES (" . $rate_photoid . "," . $rate_userid . "," . $rate_rating . ")";
+	(`photo_id`, `user_id`) 
+	VALUES (" . $rate_photoid . "," . $rate_userid . ")";
+	echo "Sinu hinnang pildile on salvestatud!";
   }
   connect($sql12);
-  echo "Sinu hinnang pildile on salvestatud!";
 }
 
 function test_input($data) {
@@ -210,35 +248,33 @@ $i=0;
 	$filename = $res->filename . "." . $res->suffix;
 	echo "<img id=\"resim\" src=\"uploads/" . $filename . "\">";
 	$rating = getRating($res->id);
-	echo "<div id=\"element\" style=\"margin-left: 20%\">";
+	echo "<div id=\"element\" style=\"margin-left: 14.5%\">";
 	echo "Author: " . $res->owner;
+	$rating = getRating($res->id);
+	echo " ( " . $rating . " Likes )";
 	echo "</div>";
-	echo "<div id=\"element\">";
-	echo "Rating: " . number_format($rating,2);
-	if(getMyRating($res->id)>0){ echo " My Rating: " . getMyRating($res->id);}
+	
+	echo "<div style=\"text-align: center;\" id=\"element\">";
+	if(isUserLoggedIn()){
+	echo "<form method=\"POST\" action=\"main.php\">";
+	echo "<input type=\"hidden\" name=\"photoids\" value=\"" . $res->id . "\">";
+	echo "<input type=\"submit\" value=\"\" id=\"" . $res->id . "\" class=\"like\" />";
+	echo "</form>";
+	if(MyRate($res->id)>0){echo "<script>replace(" . $res->id . ");</script>";}
+	}
 	echo "</div>";
 	echo "<div id=\"element\">";
 	echo "Date : " . $res->ts;
 	echo "</div>";
-	echo "<div id=\"element\" style=\"margin-left: 20%; overflow-y: auto; width: calc(60% + 8px); height: 42px\";>";
+	echo "<div id=\"element\" style=\"margin-left: 14.5%; overflow-y: auto; width: calc(70% + 8px); height: 42px\";>";
 	echo "Description: " . $res->description;
 	echo "</div>";
 	if(isUserLoggedIn()){
-	echo "<div id=\"element\" style=\" margin-left: 20%;  width: calc(20% + 3px); height: 24px\";>";
-	echo "<form method=\"post\" action=\"search.php\">
-<select name=\"rating\">
-<option value=\"1\">Not interesting&nbsp;&nbsp;( 1 )</option>
-<option value=\"2\">Average&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( 2 )</option>
-<option value=\"3\">Good&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( 3 )</option>
-<option value=\"4\">Great&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( 4 )</option>
-<option value=\"5\" selected>Amazing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( 5 )</option>
-<input type=\"hidden\" name=\"photoid\" value=\"" . $res->id . "\" />
-</select>
-<input type=\"submit\" value=\"Rate\">
-</form>";
-	echo "</div>";}
-	echo "<div id=\"element\" style=\"margin-left: 40%; text-align: center; margin-top:72px; position:absolute; border: 0; width: calc(17% + 1px); height: 32px\";>";
-	echo "<div id=\"menu\"><a href=\"#\">Comments (" . CommentCount($res->id) . ")</a></div>";
+	//echo "<div id=\"element\" style=\" margin-left: 20%;  width: calc(20% + 3px); height: 24px\";>";
+	//echo "</div>";
+	}
+	echo "<div id=\"element\" style=\"margin-left: 40%; text-align: center; margin-top:86px; position:absolute; border: 0; width: calc(17% + 1px); height: 32px\";>";
+	echo "<div id=\"menu\"><a target=\"search_iframe\" href=\"comment.php?photo_id=" . $res->id . "\">Comments (" . CommentCount($res->id) . ")</a></div>";
 	echo "</div>";
 	echo "</div><br>";	
 			}

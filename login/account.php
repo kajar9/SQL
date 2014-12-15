@@ -9,6 +9,9 @@ if ($login->isUserLoggedIn() == true) {
 	include("views/account_not_logged_in.php");
 	return 0;
 }
+
+
+
 ?>
 <head>
 <style>
@@ -33,13 +36,20 @@ if ($login->isUserLoggedIn() == true) {
 	background-color: lightblue;
 	text-decoration: none;
 }
+
+#resim
+{
+	display: block;
+	max-height: 100px;
+	max-width: 100%;
+	margin: auto;
+}
+
+
 </style>
 </head>
 <div id="submenu">
-	<a href="">Halda enda fotosid</a>
-	<a href="">Lae üles uus foto</a>
-	<a href="">Muuda enda andmeid</a>
-	
+	<a href="upload.html" target="search_iframe"=>Lae üles uus foto</a>
 </div>
 
 <table border="0" cellpadding="3">
@@ -60,3 +70,23 @@ if ($login->isUserLoggedIn() == true) {
 <td bgcolor="green" ><font color="white"><?php echo ImageCount(); ?></font></td>
 </tr>
 </table>
+
+<br>
+<div width="90%">
+<?php
+$sql="SELECT * FROM `131034_photos` WHERE `owner` = \"" . $_SESSION['user_name'] . "\"";
+$result=connect($sql);
+while($res = $result->fetch_object()){
+
+echo "<table align=\"center\" border=\"3\" style=\"float: left; width: calc(100%/3); text-align: center;\">\n";
+echo "<tr>\n";
+echo "<td rowspan=\"3\"><a href=\"uploads/" . $res->filename . "." . $res->suffix . "\" target=\"_blank\" ><img id=\"resim\" src=\"uploads/" . $res->filename . "." . $res->suffix . "\"></a></td>\n";
+echo "<td><a href=\"uploads/" . $res->filename . "." . $res->suffix . "\" target=\"_blank\" >VIEW</a></td>\n";
+echo "</tr>\n";
+echo "<tr><td><a target=\"search_iframe\" href=\"comment.php?photo_id=" . $res->id . "\">Comments (" . CommentCount($res->id) . ")</a></td></tr>\n";
+echo "<tr><td><a target=\"search_iframe\" href=\"delete.php?photo_id=" . $res->id . "\">DELETE</a></td></tr>\n";
+echo "</table>";
+
+}
+?>
+</div>
